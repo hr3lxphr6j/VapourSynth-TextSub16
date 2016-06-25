@@ -1,4 +1,7 @@
-def TextSub16(clip, file, charset=None, fps=None, vfr=None, swapuv=None):
+import vapoursynth as vs
+
+
+def TextSub16(clip, file, mod=False, charset=None, fps=None, vfr=None, swapuv=None):
     core = vs.get_core()
     funcName = 'TextSub16'
     if clip.format.color_family != vs.YUV:
@@ -13,7 +16,10 @@ def TextSub16(clip, file, charset=None, fps=None, vfr=None, swapuv=None):
     yuv444 = src16.format.id == vs.YUV444P16
     yuv422 = src16.format.id == vs.YUV422P16
     yuv420 = src16.format.id == vs.YUV420P16
-    src8sub = core.xyvsf.TextSub(clip=src8, file=file, charset=charset, fps=fps, vfr=vfr, swapuv=swapuv)
+    if mod:
+        src8sub = core.VSFmod.VobSubMod(clip=src8, file=file, swapuv=swapuv)
+    else:
+        src8sub = core.xyvsf.TextSub(clip=src8, file=file, charset=charset, fps=fps, vfr=vfr, swapuv=swapuv)
     src16sub = core.fmtc.bitdepth(clip=src8sub, bits=16)
     submask = core.std.Expr([src8, src8sub], expr=["x y = 0 255 ?", "x y = 0 255 ?", "x y = 0 255 ?"])
     submaskY = core.std.ShufflePlanes(clips=submask, planes=0, colorfamily=vs.GRAY)
