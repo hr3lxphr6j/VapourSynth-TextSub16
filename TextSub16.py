@@ -21,7 +21,7 @@ def TextSub16(clip, file, mod=False, charset=None, fps=None, vfr=None, swapuv=No
     else:
         src8sub = core.xyvsf.TextSub(clip=src8, file=file, charset=charset, fps=fps, vfr=vfr, swapuv=swapuv)
     src16sub = core.fmtc.bitdepth(clip=src8sub, bits=16)
-    submask = core.std.Expr([src8, src8sub], expr=["x y = 0 255 ?", "x y = 0 255 ?", "x y = 0 255 ?"])
+    submask = core.std.Expr([src8, src8sub], expr=["x y = 0 255 ?"])
     submaskY = core.std.ShufflePlanes(clips=submask, planes=0, colorfamily=vs.GRAY)
     submaskY = core.fmtc.bitdepth(clip=submaskY, bits=16)
     submaskU = core.std.ShufflePlanes(clips=submask, planes=1, colorfamily=vs.GRAY).fmtc.resample(w=sw, h=sh, sx=0.25,
