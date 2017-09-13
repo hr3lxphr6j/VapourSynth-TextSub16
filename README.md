@@ -2,16 +2,16 @@
 
 Add ass sub with high bit YUV clip.
 
-#Requirements:
+# Requirements:
 * fmtconv
 * VapourSynth-VSFilter
 
-#Usage:
+# Usage:
 
-TextSub16(clip, file, [mod=False, charset=None, fps=None, vfr=None, swapuv=None])
+`TextSub16(clip, file, [mod=False, charset=None, fps=None, vfr=None, swapuv=None])`
 * clip: The input clip can be 8-16 bit YUV, and output with 16bit YUV.
 * file: ASS file
 * mod:   
-True: Use core.VSFmod.VobSubMod
-False: Use core.xyvsf.TextSub
+True: Use `core.VSFmod.VobSubMod `  
+False: Use `core.xyvsf.TextSub`   
 Default is false
